@@ -1,7 +1,6 @@
 /**********************************************************************************
 // GameLoop
 // Descrição: Esqueleto de um laço de tempo real para criar um jogo.
-//
 **********************************************************************************/
 
 #include <windows.h>        // inclui funções do windows
