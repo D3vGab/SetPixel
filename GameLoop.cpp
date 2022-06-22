@@ -1,25 +1,20 @@
 /**********************************************************************************
 // GameLoop
-//
-// Criação:     19 Ago 2011
-// Atualização: 31 Jul 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição: Esqueleto de um laço de tempo real para criar um jogo.
+// DescriÃ§Ã£o: Esqueleto de um laÃ§o de tempo real para criar um jogo.
 //
 **********************************************************************************/
 
-#include <windows.h>        // inclui funções do windows
-#include <windowsx.h>       // inclui funções extras do windows
+#include <windows.h>        // inclui funÃ§Ãµes do windows
+#include <windowsx.h>       // inclui funÃ§Ãµes extras do windows
 #include <random>
-//#include "Resources.h"      // definições dos recursos utilizados
+//#include "Resources.h"      // definiÃ§Ãµes dos recursos utilizados
 
 using namespace std;
-// protótipo do procedimento da janela
+// protÃ³tipo do procedimento da janela
 LRESULT CALLBACK WinProc(HWND, UINT, WPARAM, LPARAM);
 
 // -----------------------------------------------------------------------
-// constantes, variáveis e funções globais
+// constantes, variÃ¡veis e funÃ§Ãµes globais
 
 int windowWidth = 960;     // largura da janela
 int windowHeight = 540;     // altura da janela
@@ -27,8 +22,8 @@ bool fullScreen = false;    // tela cheia ou modo janela
 
 bool vkKeys[256] = { 0 };   // estado das teclas do teclado
 HWND hwnd;                  // identificador da janela
-HDC     hdc;                // dispositivo gráfico
-int x, y;                   // posição
+HDC     hdc;                // dispositivo grÃ¡fico
+int x, y;                   // posiÃ§Ã£o
 int r, g, b;                // cor
 
 random_device rd;
@@ -40,7 +35,7 @@ uniform_int_distribution <int> randomRed(0, 255);
 uniform_int_distribution <int> randomGreen(0, 255);
 uniform_int_distribution <int> randomBlue(0, 255);
 // -----------------------------------------------------------------------
-// funções do jogo
+// funÃ§Ãµes do jogo
 
 // inicializa o jogo alocando recursos
 void GameInit()
@@ -55,7 +50,7 @@ void GameInit()
     b = randomBlue(mt);
 }
 
-// atualiza a lógica do jogo
+// atualiza a lÃ³gica do jogo
 void GameUpdate()
 {
     // sai com o pressionamento da tecla ESC
@@ -70,7 +65,7 @@ void GameUpdate()
     b = randomBlue(mt);
 }
 
-// desenha o próximo quadro do jogo
+// desenha o prÃ³ximo quadro do jogo
 void GameDraw()
 {
     SetPixel(hdc, x, y, RGB(r, g, b));
@@ -105,7 +100,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     // registrando "GameWindow"
     if (!RegisterClass(&wndclass))
     {
-        MessageBox(NULL, "Erro na criação da janela!", "Game", MB_ICONERROR);
+        MessageBox(NULL, "Erro na criaÃ§Ã£o da janela!", "Game", MB_ICONERROR);
         return 0;
     }
 
@@ -120,24 +115,24 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     }
 
     // criando uma janela baseada na classe "GameWindow"
-    // é necessário usar CreateWindowEx para usar AdjustWindowRectEx
+    // Ã© necessÃ¡rio usar CreateWindowEx para usar AdjustWindowRectEx
     hwnd = CreateWindowEx(
         NULL,                           // estilos extras
         "GameWindow",                   // nome da "window class"
-        "Game",                         // título da janela
+        "Game",                         // tÃ­tulo da janela
         windowStyle,                    // estilo da janela
-        CW_USEDEFAULT,                  // posição x inicial
-        CW_USEDEFAULT,                  // posição y inicial
+        CW_USEDEFAULT,                  // posiÃ§Ã£o x inicial
+        CW_USEDEFAULT,                  // posiÃ§Ã£o y inicial
         windowWidth,                    // largura da janela
         windowHeight,                   // altura da janela
         NULL,                           // identificador do objeto pai
         NULL,                           // identificador do menu
-        hInstance,                      // identificador da aplicação
-        NULL);                          // parâmetros de criação
+        hInstance,                      // identificador da aplicaÃ§Ã£o
+        NULL);                          // parÃ¢metros de criaÃ§Ã£o
 
     if (!fullScreen)
     {
-        // retângulo com o tamanho da área cliente desejada
+        // retÃ¢ngulo com o tamanho da Ã¡rea cliente desejada
         RECT winRect = { 0, 0, windowWidth, windowHeight };
 
         // ajuste do tamanho da janela
@@ -146,15 +141,15 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
             GetMenu(hwnd) != NULL,
             GetWindowExStyle(hwnd));
 
-        // atualiza posição da janela
+        // atualiza posiÃ§Ã£o da janela
         int windowPosX = (GetSystemMetrics(SM_CXSCREEN) / 2) - ((winRect.right - winRect.left) / 2);
         int windowPosY = (GetSystemMetrics(SM_CYSCREEN) / 2) - ((winRect.bottom - winRect.top) / 2);
 
         // redimensiona janela com uma chamada a MoveWindow
         MoveWindow(
             hwnd,                           // identificador da janela
-            windowPosX,                     // posição x
-            windowPosY,                     // posição y
+            windowPosX,                     // posiÃ§Ã£o x
+            windowPosY,                     // posiÃ§Ã£o y
             winRect.right - winRect.left,   // largura
             winRect.bottom - winRect.top,   // altura
             TRUE);                          // repintar
